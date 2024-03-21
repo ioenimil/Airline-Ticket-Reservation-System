@@ -37,7 +37,7 @@ def main():
 
             if submitted:
                 handle_submit(input=data)
-                st.write("slider", slider_val, "checkbox", checkbox_val)
+               
 
     elif choice == "Cancel a reservation":
         name = st.text_input("Enter passenger name to cancel reservation:")

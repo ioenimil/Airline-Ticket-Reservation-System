@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import datetime
 import time
+from linkedlist import *
 
 def reserve_ticket(airline, data):
     if not data:
@@ -45,7 +46,8 @@ def cancel_reservation(airline, name):
 def check_reservation(airline, name):
     current = airline.head
     while current:
-        if current.name["name"] == name:
+        if name in current.data["name"].upper() or name in current.data["name"].title() or name in current.data["name"].lower():
+            st.dataframe(current.data)
             st.write(f"Reservation found for **{name}**.")
             return
         current = current.next
@@ -154,7 +156,7 @@ def handle_submit(input):
         reserve_ticket(st.session_state.airline, input)
         # Display success message for 3 seconds
         success = st.success(
-            f"Reservation for {name} @ {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} is successful."
+            f"Reservation for {input['name']} @ {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} is successful."
         )
         time.sleep(3)
         success.empty()
