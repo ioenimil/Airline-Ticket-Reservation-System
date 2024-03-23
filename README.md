@@ -39,7 +39,7 @@ To run the Airline Ticket Reservation System, follow these steps:
 The project is structured as follows:
 
 - `main.py`: Contains the main Streamlit application code for interacting with the reservation system.
-- `airline_reservation.py`: Defines the `AirlineReservation` class and linked list operations for the reservation system.
+- `airline_reservation.py`: Defines the `AirlineReservation` class for the reservation system.
 - `utils.py`: Contains utility functions used in the project.
 - `requirements.txt`: Lists the dependencies required to run the project.
 

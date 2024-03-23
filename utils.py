@@ -2,12 +2,12 @@ import streamlit as st
 import numpy as np
 import datetime
 import time
-from linkedlist import *
+from airline_reservation import *
+
 
 def reserve_ticket(airline, data):
-    if not data:
-        st.write("Please enter a valid data.")
-        return
+    
+
     new_node = Node(data)
     if not airline.head or airline.head.data["name"] > data["name"]:
         new_node.next = airline.head
@@ -21,32 +21,36 @@ def reserve_ticket(airline, data):
 
 
 def cancel_reservation(airline, name):
+    name = name.strip()
     if not airline.head:
         st.error("No reservations found.")
-        return
-    if airline.head.data == name:
+        return False
+    if airline.head.data['name'].upper() == name or airline.head.data['name'].lower() == name or airline.head.data['name'].title() == name:
         airline.head = airline.head.next
 
         success = st.success(f"Reservation for {name} is cancelled.")
         time.sleep(3)
         success.empty()
-        return
+        return True
     current = airline.head
     while current.next:
-        if current.next.data == name:
+        if current.next.data['name'] == name.title or current.next.data['name'] == name.upper or current.next.data['name'] == name.lower:
             current.next = current.next.next
             st.write(f"Reservation for {name} cancelled.")
-            return
+            return True
         current = current.next
-    error = st.error(f"No reservation found for {name}.")
-    time.sleep(3)
-    error.empty()
+    return False
+    
 
 
 def check_reservation(airline, name):
     current = airline.head
     while current:
-        if name in current.data["name"].upper() or name in current.data["name"].title() or name in current.data["name"].lower():
+        if (
+            name in current.data["name"].upper()
+            or name in current.data["name"].title()
+            or name in current.data["name"].lower()
+        ):
             st.dataframe(current.data)
             st.write(f"Reservation found for **{name}**.")
             return
@@ -67,14 +71,18 @@ def display_passengers(airline):
         row = {
             "No.": counter,
             "Passenger Name": current.data["name"],
-            "Age": current.data["age"],
+            "Email": current.data["email"],
             "Travel Type": current.data["class"],
+            "Origin": current.data["origin"],
+            "Destination": current.data["destination"],
+            "Departure Date": current.data["departure date"],
+            "Departure Time": current.data["departure time"],
         }
         rows.append(row)
         counter += 1
         current = current.next
     # Creating columns to center the dataframe
-    col1, col2, col3 = st.columns([1, 2, 1])
+    col1, col2, col3 = st.columns([1, 20, 1])
     with col2:  # This places the dataframe in the middle column
         st.dataframe(rows, use_container_width=True)
 
@@ -144,19 +152,15 @@ def check_reservation(airline, name):
     )
 
 
-def play_sound():
-    audio_file = open("./media/sound/ambient-piano-logo-165357.mp3", "rb")
-    audio_bytes = audio_file.read()
-
-    st.audio(audio_bytes, format="audio/mp3")
-
-
 def handle_submit(input):
     if input:
+        if not input or input["name"] == "":
+            st.error("Please enter a valid data.")
+            return
         reserve_ticket(st.session_state.airline, input)
         # Display success message for 3 seconds
         success = st.success(
-            f"Reservation for {input['name']} @ {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} is successful."
+            f"Reservation for {input['name']} @ {datetime.datetime.now().strftime('%H:%M:%S')} is successful."
         )
         time.sleep(3)
         success.empty()
