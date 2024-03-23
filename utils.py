@@ -4,9 +4,75 @@ import datetime
 import time
 from airline_reservation import *
 
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+def generate_class_distribution_chart(airline):
+    """
+    Generate a bar chart for the distribution of classes chosen by passengers.
+
+    Parameters:
+        data (dict): Dictionary containing booking data with 'class' as one of the keys.
+
+    Returns:
+        None
+    """
+    current = airline.head
+    rows = []  # List to hold each row as a dictionary
+    counter = 1
+    if not current:
+        st.error("No reservation for passenger")
+        return
+
+    while current:
+        # Each row is represented as a dictionary with headers as keys
+        row = {
+            "No": counter,
+            "Passenger Name": current.data["name"],
+            "Email": current.data["email"],
+            "Travel Type": current.data["class"],
+            "Origin": current.data["origin"],
+            "Destination": current.data["destination"],
+            "Departure Date": current.data["departure date"],
+            "Departure Time": current.data["departure time"],
+        }
+        rows.append(row)
+        counter += 1
+        current = current.next
+
+    # Convert data to DataFrame
+    json_data = {
+        "No": [],
+        "Passenger Name": [],
+        "Email": [],
+        "Travel Type": [],
+        "Origin": [],
+        "Destination": [],
+        "Departure Date": [],
+        "Departure Time": [],
+    }
+    for record in rows:
+        for key, value in record.items():
+            print(key)
+            json_data[key].append(value)
+
+    print(json_data)
+    df = pd.DataFrame(rows)
+
+    # Generate chart
+    st.title(":rainbow[Class Preference Distribution]")
+    st.text(" ")
+    class_counts = df['Travel Type'].value_counts()
+    fig, ax = plt.subplots()
+    class_counts.plot(kind='bar', ax=ax)
+    plt.xlabel("Class")
+    plt.ylabel("Number of Passengers")
+    plt.title("Class Preference Distribution")
+    st.pyplot(fig)
+
 
 def reserve_ticket(airline, data):
-    
 
     new_node = Node(data)
     if not airline.head or airline.head.data["name"] > data["name"]:
@@ -25,7 +91,11 @@ def cancel_reservation(airline, name):
     if not airline.head:
         st.error("No reservations found.")
         return False
-    if airline.head.data['name'].upper() == name or airline.head.data['name'].lower() == name or airline.head.data['name'].title() == name:
+    if (
+        airline.head.data["name"].upper() == name
+        or airline.head.data["name"].lower() == name
+        or airline.head.data["name"].title() == name
+    ):
         airline.head = airline.head.next
 
         success = st.success(f"Reservation for {name} is cancelled.")
@@ -34,13 +104,16 @@ def cancel_reservation(airline, name):
         return True
     current = airline.head
     while current.next:
-        if current.next.data['name'] == name.title or current.next.data['name'] == name.upper or current.next.data['name'] == name.lower:
+        if (
+            current.next.data["name"] == name.title
+            or current.next.data["name"] == name.upper
+            or current.next.data["name"] == name.lower
+        ):
             current.next = current.next.next
             st.write(f"Reservation for {name} cancelled.")
             return True
         current = current.next
     return False
-    
 
 
 def check_reservation(airline, name):

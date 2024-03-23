@@ -9,10 +9,10 @@ from utils import *
 def main():
     images = []
     images_path = [
-       "media/images/cheerful-african-guy-with-narrow-dark-eyes-fluffy-hair-dressed-elegant-white-shirt.jpg",
+        "media/images/cheerful-african-guy-with-narrow-dark-eyes-fluffy-hair-dressed-elegant-white-shirt.jpg",
         "media/images/new passport pic.png",
         "media/images/portrait-african-american-man.jpg",
-        "media/images/young-man-posing-studio-medium-shot.jpg"
+        "media/images/young-man-posing-studio-medium-shot.jpg",
     ]
     for path in images_path:
 
@@ -39,6 +39,7 @@ def main():
         "Cancel a reservation",
         "Check reservation",
         "Display passengers",
+        "Display analytics"
     ]
     choice = st.sidebar.selectbox("# Select an option", options)
     st.sidebar.text(" ")
@@ -52,24 +53,29 @@ def main():
     st.sidebar.text(" ")
     st.sidebar.text(" ")
     st.sidebar.text(" ")
-    
+
     with st.sidebar.container(height=100):
-       
+
         # st.markdown("<h1 style='text-align: center; color: rainbow;'>Team Members</h1>", unsafe_allow_html=True)
         st.title(":rainbow[Team Members]")
         st.text(" ")
-    
+
     with st.sidebar.container(height=300):
-        
+
         # st.sidebar()
 
         with st.container():
             st.image(
-            image=images,
-            caption=["Enimil", "Anna", 'Kwaku', "Araba"],
-        )
+                image=images,
+                caption=["Enimil", "Anna", "Kwaku", "Araba"],
+            )
 
-    travel_classes = ("Economy Class","Premium Economy Class", "Business Class", "First Class", )
+    travel_classes = (
+        "Economy Class",
+        "Premium Economy Class",
+        "Business Class",
+        "First Class",
+    )
     if choice == "Reserve a ticket":
         st.container()
         with st.form("my_form", clear_on_submit=True):
@@ -86,6 +92,7 @@ def main():
             departure_time = st.time_input(
                 "Select the time of flight",
             )
+            
             origin = st.text_input("Enter departure city", placeholder="Accra").strip()
             destination = st.text_input(
                 "Enter **arrival** city", placeholder="NewYork"
@@ -137,6 +144,9 @@ def main():
     elif choice == "Display passengers":
         display_passengers(st.session_state.airline)
         display_passengers_code()
+        
+    else:
+        generate_class_distribution_chart(st.session_state.airline)
 
 
 if __name__ == "__main__":
