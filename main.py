@@ -19,16 +19,16 @@ def main():
         with open(f"{path}", "rb") as file:
             image = file.read()
             images.append(image)
-    if "balloons_state" not in st.session_state:
-        st.balloons()
-        st.snow()
-        st.session_state.balloons_state = True
+    # if "balloons_state" not in st.session_state:
+    #     st.balloons()
+    #     st.snow()
+    #     st.session_state.balloons_state = True
 
     time.sleep(1)
     if "airline" not in st.session_state:
         st.session_state.airline = AirlineReservation()
 
-    st.title(":rainbow[Airline Ticket Reservation System]")
+    title = st.title("Airline Ticket Reservation System")
     # st.text(" ")
     st.divider()
 
@@ -39,25 +39,18 @@ def main():
         "Cancel a reservation",
         "Check reservation",
         "Display passengers",
-        "Display analytics"
+        "Display analytics",
     ]
     choice = st.sidebar.selectbox("# Select an option", options)
-    st.sidebar.text(" ")
-    st.sidebar.text(" ")
-    st.sidebar.text(" ")
-    st.sidebar.text(" ")
-    st.sidebar.text(" ")
-    st.sidebar.text(" ")
-    st.sidebar.text(" ")
-    st.sidebar.text(" ")
-    st.sidebar.text(" ")
-    st.sidebar.text(" ")
-    st.sidebar.text(" ")
+    for i in range(8):
+        st.sidebar.text(" ")
 
     with st.sidebar.container(height=100):
 
-        # st.markdown("<h1 style='text-align: center; color: rainbow;'>Team Members</h1>", unsafe_allow_html=True)
-        st.title(":rainbow[Team Members]")
+        st.markdown(
+            "<h1 style='text-align: center;'>Team Members</h1>", unsafe_allow_html=True
+        )
+        # st.title(":rainbow[Team Members]")
         st.text(" ")
 
     with st.sidebar.container(height=300):
@@ -92,11 +85,13 @@ def main():
             departure_time = st.time_input(
                 "Select the time of flight",
             )
-            
-            origin = st.text_input("Enter departure city", placeholder="Accra").strip()
-            destination = st.text_input(
-                "Enter **arrival** city", placeholder="NewYork"
-            ).strip()
+
+            destination_context = ["Kumasi", "Tamale", "Takoradi", "Sunyani"]
+            origin_context = ["Accra"]
+            origin = st.selectbox("Select departure city", options=origin_context)
+            destination = st.selectbox(
+                "Select destination", options=destination_context
+            )
 
             data = {
                 "name": name,
@@ -144,8 +139,9 @@ def main():
     elif choice == "Display passengers":
         display_passengers(st.session_state.airline)
         display_passengers_code()
-        
+
     else:
+        title.empty()
         generate_class_distribution_chart(st.session_state.airline)
 
 

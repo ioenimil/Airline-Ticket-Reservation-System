@@ -105,9 +105,9 @@ def cancel_reservation(airline, name):
     current = airline.head
     while current.next:
         if (
-            current.next.data["name"] == name.title
-            or current.next.data["name"] == name.upper
-            or current.next.data["name"] == name.lower
+            current.next.data["name"] == name.title()
+            or current.next.data["name"] == name.upper()
+            or current.next.data["name"] == name.lower()
         ):
             current.next = current.next.next
             st.write(f"Reservation for {name} cancelled.")

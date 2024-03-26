@@ -1,7 +1,3 @@
-Certainly! Below is a basic template for a README.md file based on the code you provided:
-
----
-
 # Airline Ticket Reservation System
 
 Welcome to the Airline Ticket Reservation System! This project implements a reservation system using a linked list data structure. Passengers can reserve tickets, cancel reservations, check reservations, and display the list of passengers.
