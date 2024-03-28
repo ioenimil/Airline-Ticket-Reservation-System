@@ -192,10 +192,6 @@ def cancel_reservation(airline, name):
         return
     if airline.head.name == name:
         airline.head = airline.head.next
-        
-        success = st.success(f"Reservation for {name} is cancelled.")
-        time.sleep(3)
-        success.empty() 
         return
     current = airline.head
     while current.next:
@@ -231,11 +227,12 @@ def handle_submit(input):
             st.error("Please enter a valid data.")
             return
         reserve_ticket(st.session_state.airline, input)
+        time.sleep(2)
         # Display success message for 3 seconds
         success = st.success(
             f"Reservation for {input['name']} @ {datetime.datetime.now().strftime('%H:%M:%S')} is successful."
         )
-        time.sleep(3)
+        time.sleep(2)
         success.empty()
     else:
         success = st.error(f"Wrong input, please enter a valid name.")

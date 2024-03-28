@@ -9,10 +9,15 @@ from utils import *
 def main():
     images = []
     images_path = [
-        "media/images/cheerful-african-guy-with-narrow-dark-eyes-fluffy-hair-dressed-elegant-white-shirt.jpg",
+        "media/images/WhatsApp Image 2024-03-27 at 22.42.33_91a53ac3.jpg",
         "media/images/new passport pic.png",
-        "media/images/portrait-african-american-man.jpg",
-        "media/images/young-man-posing-studio-medium-shot.jpg",
+        "media/images/WhatsApp Image 2024-03-27 at 22.46.59_978d65cc.jpg",
+        "media/images/WhatsApp Image 2024-03-27 at 22.50.33_b7ea5a4e.jpg",
+        "media/images/kel.jpg",
+        "media\images\Jason.jpg",
+        "media\images\Bolton.jpg",
+        "media/images/rose.jpg",
+        "media/images/Eva.jpg",
     ]
     for path in images_path:
 
@@ -60,7 +65,17 @@ def main():
         with st.container():
             st.image(
                 image=images,
-                caption=["Enimil", "Anna", "Kwaku", "Araba"],
+                caption=[
+                    "Gibson".upper(),
+                    "Enimil".upper(),
+                    "Micheal".upper(),
+                    "Anthony".upper(),
+                    "Kelvin".upper(),
+                    "Jason".upper(),
+                    "Bolton".upper(),
+                    "Rosemond".upper(),
+                    "Eva".upper(),
+                ],
             )
 
     travel_classes = (
@@ -70,12 +85,14 @@ def main():
         "First Class",
     )
     if choice == "Reserve a ticket":
+
         st.container()
         with st.form("my_form", clear_on_submit=True):
 
             name = st.text_input(
                 "Enter passenger's name:", placeholder="Kelvin Enimil"
             ).strip()
+
             email = st.text_input(
                 "Enter passenger's email", placeholder="kelvin@st.knust.edu.gh"
             ).strip()
