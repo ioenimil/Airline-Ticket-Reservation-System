@@ -7,23 +7,23 @@ from utils import *
 
 
 def main():
-    images = []
-    images_path = [
-        "media/images/WhatsApp Image 2024-03-27 at 22.42.33_91a53ac3.jpg",
-        "media/images/new passport pic.png",
-        "media/images/WhatsApp Image 2024-03-27 at 22.46.59_978d65cc.jpg",
-        "media/images/WhatsApp Image 2024-03-27 at 22.50.33_b7ea5a4e.jpg",
-        "media/images/kel.jpg",
-        "media\images\Jason.jpg",
-        "media\images\Bolton.jpg",
-        "media/images/rose.jpg",
-        "media/images/Eva.jpg",
-    ]
-    for path in images_path:
+    # images = []
+    # images_path = [
+    #     "media/images/WhatsApp Image 2024-03-27 at 22.42.33_91a53ac3.jpg",
+    #     "media/images/new passport pic.png",
+    #     "media/images/WhatsApp Image 2024-03-27 at 22.46.59_978d65cc.jpg",
+    #     "media/images/WhatsApp Image 2024-03-27 at 22.50.33_b7ea5a4e.jpg",
+    #     "media/images/kel.jpg",
+    #     "media\images\Jason.jpg",
+    #     "media\images\Bolton.jpg",
+    #     "media/images/rose.jpg",
+    #     "media/images/Eva.jpg",
+    # ]
+    # for path in images_path:
 
-        with open(f"{path}", "rb") as file:
-            image = file.read()
-            images.append(image)
+    #     with open(f"{path}", "rb") as file:
+    #         image = file.read()
+    #         images.append(image)
     # if "balloons_state" not in st.session_state:
     #     st.balloons()
     #     st.snow()
@@ -58,25 +58,25 @@ def main():
         # st.title(":rainbow[Team Members]")
         st.text(" ")
 
-    with st.sidebar.container(height=300):
+    # with st.sidebar.container(height=300):
 
         # st.sidebar()
 
-        with st.container():
-            st.image(
-                image=images,
-                caption=[
-                    "Gibson".upper(),
-                    "Enimil".upper(),
-                    "Micheal".upper(),
-                    "Anthony".upper(),
-                    "Kelvin".upper(),
-                    "Jason".upper(),
-                    "Bolton".upper(),
-                    "Rosemond".upper(),
-                    "Eva".upper(),
-                ],
-            )
+        # with st.container():
+        #     st.image(
+        #         image=images,
+        #         caption=[
+        #             "Gibson".upper(),
+        #             "Enimil".upper(),
+        #             "Micheal".upper(),
+        #             "Anthony".upper(),
+        #             "Kelvin".upper(),
+        #             "Jason".upper(),
+        #             "Bolton".upper(),
+        #             "Rosemond".upper(),
+        #             "Eva".upper(),
+        #         ],
+        #     )
 
     travel_classes = (
         "Economy Class",
